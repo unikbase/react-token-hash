@@ -1,0 +1,24 @@
+{
+  "name": "@unikbase/react-token-hash",
+  "version": "1.0.0",
+  "description": "Common hash library for Unikbase FE web and app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unikbase/react-token-hash.git"
+  },
+  "keywords": [
+    "hash",
+    "crypto",
+    "token"
+  ],
+  "author": "Manaty",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unikbase/react-token-hash/issues"
+  },
+  "homepage": "https://github.com/unikbase/react-token-hash#readme"
+}
