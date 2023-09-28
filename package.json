@@ -2,8 +2,27 @@
   "name": "@unikbase/react-token-hash",
   "version": "1.0.0",
   "description": "Common hash library for Unikbase FE web and app",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "!android/build",
+    "!.DS_Store",
+    "!.gradle",
+    "!.idea",
+    "!build",
+    "!gradle",
+    "!*.iml",
+    "!gradlew",
+    "!gradlew.bat",
+    "!local.properties",
+    "!project.xcworkspace",
+    "!xcshareddata",
+    "!xcuserdata"
+  ],
   "scripts": {
+    "build": "rm -rf lib && tsc -p .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +39,9 @@
   "bugs": {
     "url": "https://github.com/unikbase/react-token-hash/issues"
   },
-  "homepage": "https://github.com/unikbase/react-token-hash#readme"
+  "homepage": "https://github.com/unikbase/react-token-hash",
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "crypto-js": "^4.1.1"
+  }
 }
