@@ -1,6 +1,6 @@
 {
   "name": "@unikbase/react-token-hash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common hash library for Unikbase FE web and app",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -23,6 +23,7 @@
   "scripts": {
     "build": "rm -rf lib && tsc -p .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "prepare": "yarn build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

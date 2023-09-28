@@ -31,7 +31,7 @@ export const generateJsonHash = (token: any) => {
   const valuesArray = generateValuesArray(token.token);
 
   // hash the values using MD5
-  const hashedValuesArray = generateHashedValuesArray(token.uuid, valuesArray);
+  const hashedValuesArray = generateHashedValuesArray(token.token.uuid, valuesArray);
 
   // return its sha512
   const hash = SHA512(JSON.stringify(hashedValuesArray)).toString();
