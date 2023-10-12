@@ -44,5 +44,8 @@
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
     "crypto-js": "^4.1.1"
+  },
+  "dependencies": {
+    "json-canonicalize": "^1.0.6"
   }
 }
