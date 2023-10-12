@@ -1,4 +1,5 @@
 import { MD5, SHA512 } from 'crypto-js';
+import 'json-canonicalize/src/global';
 
 const generateValuesArray = (tokenDetail: any) => {
   const omitKeys: string[] = [];
@@ -21,7 +22,7 @@ const generateValuesArray = (tokenDetail: any) => {
 const generateHashedValuesArray = (uuid: string, valuesArray: any) => {
   const hashedValuesArray = valuesArray.map((field: any) => ({
     name: field.name,
-    valueHash: MD5(uuid + field.value).toString(),
+    valueHash: MD5(uuid + '_' + field.value).toString(),
   }));
   return hashedValuesArray;
 };
@@ -34,7 +35,7 @@ export const generateJsonHash = (token: any) => {
   const hashedValuesArray = generateHashedValuesArray(token.token.uuid, valuesArray);
 
   // return its sha512
-  const hash = SHA512(JSON.stringify(hashedValuesArray)).toString();
+  const hash = SHA512(JSON.canonicalize(hashedValuesArray)).toString();
   return hash;
 };
 
@@ -49,6 +50,6 @@ export const generateZipHash = (token: any) => {
     jsonHash,
     documentsHashes,
   };
-  const zipHash = SHA512(JSON.stringify(zip)).toString();
+  const zipHash = SHA512(JSON.canonicalize(zip)).toString();
   return zipHash;
 };
