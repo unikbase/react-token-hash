@@ -1,6 +1,25 @@
-import { MD5, SHA512 } from 'crypto-js';
+import { SHA512 } from 'crypto-js';
 import 'json-canonicalize/src/global';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
+
+const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const alpha2 = 'abcdefghijklmnopqrstuvwxyz';
+const digits = '0123456789';
+const specials = '!#$%&';
+
+export const randomSalt = () => {
+  return Array(10).fill(0).map((e, index) => {
+    let source = alpha;
+    const re = index % 4;
+    switch (re) {
+      case 1: source = digits; break;
+      case 2: source = specials; break;
+      case 3: source = alpha2; break;
+    }
+    const random = Math.floor(Math.random() * source.length);
+    return source[random];
+  }).join('');
+}
 
 export const toUint8Array = (input: string) => {
   return Uint8Array.from(input.split('').map(x => x.charCodeAt(0)))
