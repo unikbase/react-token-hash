@@ -1,5 +1,26 @@
 import { MD5, SHA512 } from 'crypto-js';
 import 'json-canonicalize/src/global';
+import { encode, decode, toHexString, fromHexString } from 'multihashes';
+
+export const toUint8Array = (input: string) => {
+  return Uint8Array.from(input.split('').map(x => x.charCodeAt(0)))
+}
+
+export const uint8ArrayToString = (uint8Buffer: Uint8Array) => {
+  return String.fromCharCode.apply(null, uint8Buffer as any);
+}
+
+export const multihashesSha1 = (input: string) => {
+  const buffer = toUint8Array(input);
+  const output = encode(buffer, 'sha1');
+  return toHexString(output);
+}
+
+export const decodeMultihash = (hexString: string) => {
+  const buffer = fromHexString(hexString);
+  const output = decode(buffer);
+  return { ...output, raw: uint8ArrayToString(output.digest) };
+}
 
 const generateValuesArray = (tokenDetail: any) => {
   const omitKeys: string[] = [];
