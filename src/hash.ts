@@ -41,14 +41,14 @@ export const generateJsonHash = (token: any) => {
 
 export const generateZipHash = (token: any) => {
   const jsonHash = generateJsonHash(token);
-  const documentsHashes = token.documents
+  const documentIdHashes = token.documents
     .map((doc: any) => {
-      return doc.uuid;
+      return multihashesSha1(doc.uuid);
     })
     .sort();
   const zip = {
     jsonHash,
-    documentsHashes,
+    documentIdHashes,
   };
   const zipHash = SHA512(JSON.canonicalize(zip)).toString();
   return zipHash;
