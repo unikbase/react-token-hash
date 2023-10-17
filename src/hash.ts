@@ -60,19 +60,28 @@ const generateValuesArray = (tokenDetail: any) => {
 };
 
 const generateHashedValuesArray = (uuid: string, valuesArray: any) => {
-  const hashedValuesArray = valuesArray.map((field: any) => ({
+  // generate salt for every property
+  const salts = valuesArray.map((field: any) => ({
     name: field.name,
-    valueHash: MD5(uuid + '_' + field.value).toString(),
+    prefix: randomSalt(),
   }));
-  return hashedValuesArray;
+
+  const hashedValuesArray = valuesArray.map((field: any, index: number) => {
+    const salt = salts[index].prefix;
+    return ({
+      name: field.name,
+      valueHash: multihashesSha1(salt + '_' + field.value),
+    })
+  });
+  return { hashedValuesArray, salts };
 };
 
 export const generateJsonHash = (token: any) => {
   // create a json array value serialize in UTF-8
   const valuesArray = generateValuesArray(token.token);
 
-  // hash the values using MD5
-  const hashedValuesArray = generateHashedValuesArray(token.token.uuid, valuesArray);
+  // hash the values using multihashes sha1
+  const { hashedValuesArray, salts } = generateHashedValuesArray(token.token.uuid, valuesArray);
 
   // return its sha512
   const hash = SHA512(JSON.canonicalize(hashedValuesArray)).toString();
