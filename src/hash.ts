@@ -76,8 +76,9 @@ const generateHashedValuesArray = (token: any, valuesArray: any) => {
 
   token.salts = salts;
 
-  const hashedValuesArray = valuesArray.map((field: any, index: number) => {
-    const salt = salts[index].prefix;
+  const hashedValuesArray = valuesArray.map((field: any) => {
+    const saltMap = salts.find((e: any) => e.name == field.name);
+    const salt = saltMap?.prefix;
     return ({
       name: field.name,
       valueHash: multihashesSha1(salt + '_' + field.value),
