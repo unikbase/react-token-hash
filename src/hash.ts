@@ -41,6 +41,15 @@ export const decodeMultihash = (hexString: string) => {
   return { ...output, raw: uint8ArrayToString(output.digest) };
 }
 
+export const generateSalts = (tokenDetails: any) => {
+  const keys = Object.keys(tokenDetails).sort();
+
+  keys.map((name: any) => ({
+    name,
+    prefix: randomSalt(),
+  }));
+}
+
 const generateValuesArray = (tokenDetail: any) => {
   const omitKeys: string[] = [];
   const sortedKeys = Object.keys(tokenDetail)
@@ -69,10 +78,7 @@ const generateHashedValuesArray = (token: any, valuesArray: any) => {
   }
 
   // generate salt for every property
-  const salts = token.salts ? token.salts : valuesArray.map((field: any) => ({
-    name: field.name,
-    prefix: randomSalt(),
-  }));
+  const salts = token.salts ? token.salts : generateSalts(token.token);
 
   token.salts = salts;
 
