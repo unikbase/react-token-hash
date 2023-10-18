@@ -1,3 +1,1 @@
-import { generateJsonHash, generateZipHash } from './hash'
-
-export { generateJsonHash, generateZipHash }
+export * from './hash'
