@@ -60,6 +60,14 @@ const generateValuesArray = (tokenDetail: any) => {
 };
 
 const generateHashedValuesArray = (token: any, valuesArray: any) => {
+  if (token.salts && Array.isArray(token.salts)) {
+    const keysInToken = Object.keys(token.token).sort().join('');
+    const keysInSalts = token.salts.map((e: any) => e.name).sort().join('');
+    if (keysInSalts != keysInToken) {
+      return null; // invalid salts or keys are not the same
+    }
+  }
+
   // generate salt for every property
   const salts = token.salts ? token.salts : valuesArray.map((field: any) => ({
     name: field.name,
