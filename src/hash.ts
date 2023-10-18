@@ -44,7 +44,7 @@ export const decodeMultihash = (hexString: string) => {
 export const generateSalts = (tokenDetails: any) => {
   const keys = Object.keys(tokenDetails).sort();
 
-  keys.map((name: any) => ({
+  return keys.map((name: any) => ({
     name,
     prefix: randomSalt(),
   }));
