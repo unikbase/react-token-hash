@@ -10,5 +10,6 @@ export declare const decodeMultihash: (hexString: string) => {
     length: number;
     digest: Uint8Array;
 };
-export declare const generateJsonHash: (token: any) => string;
+export declare const generateSalts: (tokenDetails: any) => void;
+export declare const generateJsonHash: (token: any) => string | null;
 export declare const generateZipHash: (token: any) => string;
