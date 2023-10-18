@@ -84,7 +84,7 @@ const generateHashedValuesArray = (token: any, valuesArray: any) => {
       valueHash: multihashesSha1(salt + '_' + field.value),
     })
   });
-  return { hashedValuesArray, salts };
+  return hashedValuesArray;
 };
 
 export const generateJsonHash = (token: any) => {
@@ -92,7 +92,11 @@ export const generateJsonHash = (token: any) => {
   const valuesArray = generateValuesArray(token.token);
 
   // hash the values using multihashes sha1
-  const { hashedValuesArray, salts } = generateHashedValuesArray(token, valuesArray);
+  const hashedValuesArray = generateHashedValuesArray(token, valuesArray);
+
+  if (!hashedValuesArray) {
+    return null;
+  }
 
   // return its sha512
   const hash = SHA512(JSON.canonicalize(hashedValuesArray)).toString();
