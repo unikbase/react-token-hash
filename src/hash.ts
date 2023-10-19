@@ -1,5 +1,5 @@
 import { SHA512 } from 'crypto-js';
-import 'json-canonicalize/src/global';
+import { canonicalize, canonicalizeEx } from 'json-canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
 
 const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -105,7 +105,7 @@ export const generateJsonHash = (token: any) => {
   }
 
   // return its sha512
-  const hash = SHA512(JSON.canonicalize(hashedValuesArray)).toString();
+  const hash = SHA512(canonicalize(hashedValuesArray)).toString();
   return hash;
 };
 
@@ -120,6 +120,6 @@ export const generateZipHash = (token: any) => {
     jsonHash,
     documentIdHashes,
   };
-  const zipHash = SHA512(JSON.canonicalize(zip)).toString();
+  const zipHash = SHA512(canonicalize(zip)).toString();
   return zipHash;
 };
