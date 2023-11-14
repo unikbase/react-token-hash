@@ -1,4 +1,3 @@
-import 'json-canonicalize/src/global';
 export declare const randomSalt: () => string;
 export declare const toUint8Array: (input: string) => Uint8Array;
 export declare const uint8ArrayToString: (uint8Buffer: Uint8Array) => string;
