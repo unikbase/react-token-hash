@@ -1,6 +1,7 @@
 import { SHA512 } from 'crypto-js';
 import { canonicalize, canonicalizeEx } from 'json-canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
+import { v4 as uuidv4 } from 'uuid';
 
 const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const alpha2 = 'abcdefghijklmnopqrstuvwxyz';
@@ -123,3 +124,79 @@ export const generateZipHash = (token: any) => {
   const zipHash = SHA512(canonicalize(zip)).toString();
   return zipHash;
 };
+
+const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
+
+  if (!_token || !_token.token || !_token.documents) return null;
+
+  const { token, documents } = _token;
+  const salts = token.salts ? token.salts : generateSalts(token.token);
+
+  const data: any = {};
+  const valuesArray = generateValuesArray(token.token);
+
+  valuesArray.forEach((field: any) => {
+    const name = field.name;
+    const shared = sharedProps.includes(`token.${name}`);
+
+    const saltMap = salts.find((e: any) => e.name == name);
+    const hashPrefix = saltMap?.prefix;
+
+    if (shared) {
+      data[name] = {
+        value: field.value,
+        hashPrefix
+      }
+    } else {
+      data[name] = {
+        hash: multihashesSha1(hashPrefix + '_' + field.value)
+      }
+    }
+  });
+
+  documents.forEach((doc: any) => {
+    const shared = sharedProps.includes(`document.${doc.uuid}`)
+
+    if (shared) {
+      data[doc.uuid] = {
+        value: doc.fileUrl,
+        hash: doc.hash || doc.uuid
+      }
+    } else {
+      data[doc.uuid] = {
+        hash: doc.hash || doc.uuid
+      }
+    }
+  });
+
+  return data;
+}
+
+export const generateVerifiablePresentation = (
+  token: any,
+  sharedProps: Array<string>,
+  chainId: string,
+  walletAddress: string,
+  sign: (data: any) => string) => {
+
+  if (!token || !token.token || !token.documents) return null;
+
+
+  const presentation = {
+    tokenId: token.token.uuid,
+    credentialId: uuidv4(), // the VC id, optional
+    selectiveObjectData: selectiveObjectData(token, sharedProps),
+  }
+
+  const signature = sign(canonicalize(presentation));
+
+  const proof = {
+    type: 'EcdsaSecp256k1Signature2019',
+    created: new Date().toISOString(),
+    proofPurpose: 'assertionMethod',
+    verificationMethod: `did:ethr:${chainId}:${walletAddress}`,
+    signature
+  }
+
+  return { ...presentation, proof }
+}
