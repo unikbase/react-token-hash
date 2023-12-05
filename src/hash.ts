@@ -130,10 +130,10 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
   if (!_token || !_token.token || !_token.documents) return null;
 
   const { token, documents } = _token;
-  const salts = token.salts ? token.salts : generateSalts(token.token);
+  const salts = _token.salts ? _token.salts : generateSalts(token);
 
   const data: any = {};
-  const valuesArray = generateValuesArray(token.token);
+  const valuesArray = generateValuesArray(token);
 
   valuesArray.forEach((field: any) => {
     const name = field.name;
