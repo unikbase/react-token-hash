@@ -1,6 +1,6 @@
 {
   "name": "@unikbase/react-token-hash",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Common hash library for Unikbase FE web and app",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
