@@ -155,7 +155,7 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
   });
 
   documents.forEach((doc: any) => {
-    const shared = sharedProps.includes(`document.${doc.uuid}`)
+    const shared = sharedProps.includes(`documents.${doc.path}.${doc.uuid}`)
 
     if (shared) {
       data[doc.uuid] = {
