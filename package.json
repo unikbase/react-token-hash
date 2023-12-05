@@ -47,5 +47,8 @@
     "json-canonicalize": "^1.0.6",
     "multihashes": "^4.0.3",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.7"
   }
 }
