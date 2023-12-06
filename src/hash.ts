@@ -177,7 +177,7 @@ export const generateVerifiablePresentation = async (
   sharedProps: Array<string>,
   chainId: string,
   walletAddress: string,
-  sign: (data: any) => string) => {
+  sign: (data: any) => Promise<string>) => {
 
   if (!token || !token.token || !token.documents) return null;
 
