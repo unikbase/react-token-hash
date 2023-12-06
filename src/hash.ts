@@ -1,7 +1,6 @@
 import { SHA512 } from 'crypto-js';
-import { canonicalize, canonicalizeEx } from 'json-canonicalize';
+import { canonicalize } from 'json-canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
-import { v4 as uuidv4 } from 'uuid';
 
 const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const alpha2 = 'abcdefghijklmnopqrstuvwxyz';
@@ -184,7 +183,6 @@ export const generateVerifiablePresentation = async (
 
   const presentation = {
     tokenId: token.token.uuid,
-    credentialId: uuidv4(), // the VC id, optional
     selectiveObjectData: selectiveObjectData(token, sharedProps),
   }
 
