@@ -172,7 +172,7 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
   return data;
 }
 
-export const generateVerifiablePresentation = (
+export const generateVerifiablePresentation = async (
   token: any,
   sharedProps: Array<string>,
   chainId: string,
@@ -188,7 +188,7 @@ export const generateVerifiablePresentation = (
     selectiveObjectData: selectiveObjectData(token, sharedProps),
   }
 
-  const signature = sign(canonicalize(presentation));
+  const signature = await sign(canonicalize(presentation));
 
   const proof = {
     type: 'EcdsaSecp256k1Signature2019',
