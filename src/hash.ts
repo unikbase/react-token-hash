@@ -131,7 +131,7 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
   const { token, documents } = _token;
   const salts = _token.salts ? _token.salts : generateSalts(token);
 
-  const data: any = {};
+  const data: any = {documents:{}};
   const valuesArray = generateValuesArray(token);
 
   valuesArray.forEach((field: any) => {
@@ -157,12 +157,12 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
     const shared = sharedProps.includes(`documents.${doc.path}.${doc.uuid}`)
 
     if (shared) {
-      data[doc.uuid] = {
+      data.documents[doc.uuid] = {
         value: doc.fileUrl,
         hash: doc.hash || doc.uuid
       }
     } else {
-      data[doc.uuid] = {
+      data.documents[doc.uuid] = {
         hash: doc.hash || doc.uuid
       }
     }
