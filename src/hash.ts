@@ -172,6 +172,7 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
 }
 
 export const generateVerifiablePresentation = async (
+  credentialId: string,
   token: any,
   sharedProps: Array<string>,
   chainId: string,
@@ -182,6 +183,7 @@ export const generateVerifiablePresentation = async (
 
 
   const presentation = {
+    credentialId,
     tokenId: token.token.uuid,
     selectiveObjectData: selectiveObjectData(token, sharedProps),
   }
