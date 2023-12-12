@@ -1,4 +1,4 @@
-import { SHA512 } from 'crypto-js';
+import { SHA1, SHA512 } from 'crypto-js';
 import { canonicalize } from 'json-canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
 
@@ -30,7 +30,8 @@ export const uint8ArrayToString = (uint8Buffer: Uint8Array) => {
 }
 
 export const multihashesSha1 = (input: string) => {
-  const buffer = toUint8Array(input);
+  const digest = SHA1(input).toString();
+  const buffer = fromHexString(digest);
   const output = encode(buffer, 'sha1');
   return toHexString(output);
 }
