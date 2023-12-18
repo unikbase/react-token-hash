@@ -71,8 +71,11 @@ const generateValuesArray = (tokenDetail: any) => {
 
 const generateHashedValuesArray = (token: any, valuesArray: any) => {
   if (token.salts && Array.isArray(token.salts)) {
-    const keysInToken = Object.keys(token.token).sort().join('');
-    const keysInSalts = token.salts.map((e: any) => e.name).sort().join('');
+    const tokenKeys = Object.keys(token.token);
+    const keysInToken = tokenKeys.sort().join('');
+    const keysInSalts = token.salts.map((e: any) => e.name)
+      .filter((e: string) => tokenKeys.includes(e))
+      .sort().join('');
     if (keysInSalts != keysInToken) {
       return null; // invalid salts or keys are not the same
     }
