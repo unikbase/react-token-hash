@@ -189,7 +189,7 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
 }
 
 export const generateVerifiablePresentation = async (
-  credentialId: string,
+  latestVerifiableCredential: any,
   token: any,
   sharedProps: Array<string>,
   chainId: string,
@@ -200,7 +200,7 @@ export const generateVerifiablePresentation = async (
 
 
   const presentation = {
-    credentialId,
+    credentialId: latestVerifiableCredential?.id?.split('/').pop(),
     tokenId: token.token.uuid,
     selectiveObjectData: selectiveObjectData(token, sharedProps),
   }
@@ -209,7 +209,7 @@ export const generateVerifiablePresentation = async (
   const vp = {
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://unikbase.com/DigitalPassport/v1'],
     type: 'VerifiablePresentation',
-    verifiableCredential: [token.token.latestVerifiableCredential],
+    verifiableCredential: [latestVerifiableCredential],
     holder: `did:ethr:${address}`,
     selectiveObjectData: presentation.selectiveObjectData,
   }
