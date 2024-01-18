@@ -43,7 +43,9 @@
   "homepage": "https://github.com/unikbase/react-token-hash",
   "dependencies": {
     "@types/crypto-js": "^4.1.1",
+    "@types/ethereum-checksum-address": "^0.0.2",
     "crypto-js": "^4.1.1",
+    "ethereum-checksum-address": "^0.0.8",
     "json-canonicalize": "^1.0.6",
     "multihashes": "^4.0.3"
   }

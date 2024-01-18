@@ -1,6 +1,7 @@
 import { SHA1, SHA512 } from 'crypto-js';
 import { canonicalize } from 'json-canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
+import { toChecksumAddress } from 'ethereum-checksum-address';
 
 const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const alpha2 = 'abcdefghijklmnopqrstuvwxyz';
@@ -204,13 +205,21 @@ export const generateVerifiablePresentation = async (
     selectiveObjectData: selectiveObjectData(token, sharedProps),
   }
 
-  const signature = await sign(canonicalize(presentation));
+  const address = toChecksumAddress(walletAddress);
+  const vp = {
+    '@context': ['https://www.w3.org/ns/credentials/v2', 'https://unikbase.com/DigitalPassport/v1'],
+    type: 'VerifiablePresentation',
+    verifiableCredential: [token.token.latestVerifiableCredential],
+    holder: `did:ethr:${address}`,
+    selectiveObjectData: presentation.selectiveObjectData,
+  }
+  const signature = await sign(canonicalize(vp));
 
   const proof = {
     type: 'EcdsaSecp256k1Signature2019',
     created: new Date().toISOString(),
     proofPurpose: 'assertionMethod',
-    verificationMethod: `did:ethr:${chainId}:${walletAddress}`,
+    verificationMethod: `did:ethr:${chainId}:${address}`,
     signature
   }
 
