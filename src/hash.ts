@@ -161,10 +161,22 @@ const selectiveObjectData = (_token: any, sharedProps: Array<string>) => {
     const shared = sharedProps.includes(`documents.${doc.path}.${doc.uuid}`)
 
     if (shared) {
-      data.documents[doc.uuid] = {
-        value: doc.fileUrl,
-        hash: doc.hash || doc.uuid
-      }
+      data.documents[doc.uuid] = [
+        'creationDate',
+        'filename',
+        'fileUrl',
+        'hash',
+        'lastUpdate',
+        'mimeType',
+        'name',
+        'path',
+        'size'
+      ].reduce((prev: any, key: string) => {
+        prev[key] = key == 'hash'
+          ? doc[key] || doc['uuid']
+          : `${doc[key]}`;
+        return prev;
+      }, {});
     } else {
       data.documents[doc.uuid] = {
         hash: doc.hash || doc.uuid
