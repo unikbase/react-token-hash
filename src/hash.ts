@@ -1,7 +1,9 @@
 import { SHA1, SHA512 } from 'crypto-js';
-import { canonicalize } from 'json-canonicalize';
+import canonicalSerialize from 'canonicalize';
 import { encode, decode, toHexString, fromHexString } from 'multihashes';
 import { toChecksumAddress } from 'ethereum-checksum-address';
+
+const canonicalize = (input: any) => `${canonicalSerialize(input)}`;
 
 const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const alpha2 = 'abcdefghijklmnopqrstuvwxyz';
