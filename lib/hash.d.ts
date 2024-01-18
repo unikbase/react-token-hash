@@ -15,7 +15,7 @@ export declare const generateSalts: (tokenDetails: any) => {
 }[];
 export declare const generateJsonHash: (token: any) => string | null;
 export declare const generateZipHash: (token: any) => string;
-export declare const generateVerifiablePresentation: (credentialId: string, token: any, sharedProps: Array<string>, chainId: string, walletAddress: string, sign: (data: any) => Promise<string>) => Promise<{
+export declare const generateVerifiablePresentation: (latestVerifiableCredential: any, token: any, sharedProps: Array<string>, chainId: string, walletAddress: string, sign: (data: any) => Promise<string>) => Promise<{
     proof: {
         type: string;
         created: string;
@@ -23,7 +23,7 @@ export declare const generateVerifiablePresentation: (credentialId: string, toke
         verificationMethod: string;
         signature: string;
     };
-    credentialId: string;
+    credentialId: any;
     tokenId: any;
     selectiveObjectData: any;
 } | null>;
