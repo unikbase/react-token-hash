@@ -210,7 +210,7 @@ export const generateVerifiablePresentation = async (
     '@context': ['https://www.w3.org/ns/credentials/v2', 'https://unikbase.com/DigitalPassport/v1'],
     type: 'VerifiablePresentation',
     verifiableCredential: [latestVerifiableCredential],
-    holder: `did:ethr:${address}`,
+    holder: `did:ethr:${chainId}:${address}`,
     selectiveObjectData: presentation.selectiveObjectData,
   }
   const signature = await sign(canonicalize(vp));
