@@ -59,7 +59,7 @@ const generateValuesArray = (tokenDetail: any) => {
     .filter((key) => !omitKeys.includes(key));
   const valuesArray: any = [];
   for (const key of sortedKeys) {
-    if (typeof tokenDetail[key] !== 'undefined') {
+    if (typeof tokenDetail[key] !== 'undefined' && tokenDetail[key] != null) {
       const field = {
         name: key,
         value: tokenDetail[key].toString(),
