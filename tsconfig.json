@@ -3,6 +3,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["ESNext"],
     "module": "ESNext",

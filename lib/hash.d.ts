@@ -4,8 +4,8 @@ export declare const uint8ArrayToString: (uint8Buffer: Uint8Array) => string;
 export declare const multihashesSha1: (input: string) => string;
 export declare const decodeMultihash: (hexString: string) => {
     raw: string;
-    code: import("multihashes/dist/src/constants").HashCode;
-    name: import("multihashes/dist/src/constants").HashName;
+    code: import("multihashes").HashCode;
+    name: import("multihashes").HashName;
     length: number;
     digest: Uint8Array;
 };
